@@ -1,0 +1,11 @@
+@page {
+    @bottom-center {
+        content: counter(page);
+    }
+}
+
+@media print {
+  .break-after {
+    page-break-after: always;
+  }
+}

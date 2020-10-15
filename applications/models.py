@@ -20,11 +20,10 @@ class ApplicationQuestion(models.Model):
     # TODO: Add type later on and give more options
 
     def __str__(self):
-        return self.name
-
+        return '{}: {}'.format(self.category.name, self.name)
 
 class Application(models.Model):
-    user = models.ForeignKey('accounts.CustomAccount', on_delete=CASCADE)
+    user = models.OneToOneField('accounts.CustomAccount', on_delete=CASCADE, related_name='application')
     category = models.ForeignKey(ApplicationCategory, on_delete=SET_NULL, null=True)
     is_approved = models.BooleanField(default=False)
 
@@ -33,8 +32,9 @@ class Application(models.Model):
 
 
 class ApplicationAnswer(models.Model):
-    application = models.ForeignKey(Application, on_delete=CASCADE)
-    question = models.ForeignKey(ApplicationQuestion, on_delete=SET_NULL, null=True)
+    application = models.ForeignKey(Application, on_delete=CASCADE, related_name='answers')
+    question = models.ForeignKey(ApplicationQuestion, on_delete=SET_NULL, null=True, related_name='answers')
+    content = models.TextField(null=True)
 
     def __str__(self):
-        return self.question.name
+        return '{}: {}'.format(self.question.name, self.content)

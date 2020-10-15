@@ -1,13 +1,72 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>{% block title %}IEK{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 </head>
 <body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+    <div class="container">
+        <a class="navbar-brand" href="/">IEK</a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample09"
+                aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link  {% if url_name == 'edit_application' %}active{% endif %}"
+                       href="{% url 'edit_application' %}">Edit Application</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if url_name == 'view_application' %}active{% endif %}"
+                       href="{% url 'view_application' %}">View Application</a>
+                </li>
+            </ul>
+            <a class=" nav-link btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class=" nav-link btn btn-primary" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class=" nav-link btn btn-primary" href="{% url 'signup' %}">Register</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+
 <div class="container">
     {% block content %}
     {% endblock content %}
 </div>
+
+{% block javascript %}
+<script src="https://cdn.tiny.cloud/1/xxn1y50lj18voli4ne66rj2j60toouojdt89vmxlb5keha82/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+            selector:'textarea',
+            branding: false,
+            menubar: false,
+            plugins: 'link table',
+            toolbar: 'undo redo | table | bold italic underline | link'
+      });
+
+
+</script>
+{% endblock javascript %}
 </body>
 </html>

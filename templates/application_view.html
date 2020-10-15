@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+{% block content %}
+
+<a class="btn btn-primary float-right" target="_blank" href="{% url 'generate_pdf' %}">Print Report</a>
+<div class="user-info">
+    {{ user.get_full_name }}<br/>
+    {{ user.application }}
+</div>
+
+
+{% for answer in user.application.answers.all %}
+    <h3>{{ forloop.counter|floatformat:1 }} {{ answer.question.name }}</h3>
+    <div>{{ answer.content | safe }}</div>
+{% endfor %}
+
+{% endblock content %}

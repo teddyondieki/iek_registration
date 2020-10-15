@@ -1,8 +1,31 @@
 {% extends '_base.html' %}
 {% block content %}
-    <h1>Edit post</h1>
-    <form action="" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update"/>
-    </form>
+
+<a class="btn btn-primary float-right" target="_blank" href="{% url 'generate_pdf' %}">Print Report</a>
+<div class="user-info">
+    {{ user.get_full_name }}<br/>
+    {{ user.application }}
+</div>
+
+<form method="POST">
+    {{ formset.management_form }}
+    {% csrf_token %}
+
+    {% for form in formset.forms %}
+    <h4>{{ form.instance.question.name }}</h4>
+    <h6>{{ form.instance.question.description }} ({{ form.instance.question.length }} characters)</h6>
+    {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field.errors }}
+    {{ hidden_field }}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+    {{ field.errors }}
+    {{ field }}
+    {{ field.help_text }}
+    {% endfor %}
+    <Br/><br/>
+    {% endfor %}
+    <input type="submit" value="Save" class="btn btn-primary"/>
+</form>
 {% endblock content %}

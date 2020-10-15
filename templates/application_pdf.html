@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>APPLICATION REPORT</title>
+</head>
+<body>
+<div class="container">
+    <div id="title-page" class="break-after" style="text-align: center;">
+        <h2>Project Report On ...</h2>
+
+        Submitted to
+
+        <h4>ENGINEERS BOARD OF KENYA</h4>
+
+        <p>
+            In partial fulfillment of the requirements for Registration as a Professional Engineer
+        </p>
+        <p>By</p>
+
+        <p>{{ user.get_full_name }}</p>
+
+        <p>EBK No Bxx...., IEK No Gxxx</p>
+
+        <p>Month, Year</p>
+    </div>
+
+
+    <div id="declaration-page" class="break-after">
+        <h4>DECLARATION</h4>
+        <p>
+            I hereby declare that this project report gives a true record and accurate account of project work
+            that I carried out in the course of my duties.
+        </p>
+
+        <p>Signed: </p>
+
+        <p>
+            Candidate's Name:<br/>
+            EBK No. BXXXX, IEK No. G.XXXX<br/>
+            Date:
+        </p>
+
+        <h4>CERTIFICATION</h4>
+        <p>
+            I certify that this project report gives a true record and accurate account of project work done by
+            xxxxx in the course of his/her duties under my supervision
+        </p>
+
+        <p>
+            Signed.............................<br/>
+            Supervisor’s Name:.....................<br/>
+            EBK No. BXXXX, IEK No. G.XXXX<br/>
+            Date:
+        </p>
+
+
+    </div>
+
+
+    <div id="toc" class="break-after">
+        <h4>TABLE OF CONTENTS</h4>
+           {% for answer in user.application.answers.all %}
+        <h5><a href="#{{ answer.id}}">{{ forloop.counter|floatformat:1 }} {{ answer.question.name }}</a></h5>
+    {% endfor %}
+    </div>
+
+    {% for answer in user.application.answers.all %}
+    <h3 id="{{ answer.id }}">{{ forloop.counter|floatformat:1 }} {{ answer.question.name }}</h3>
+    <div>{{ answer.content | safe }}</div>
+    {% endfor %}
+</div>
+</body>
+</html>

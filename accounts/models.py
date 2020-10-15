@@ -13,21 +13,21 @@ class AccountCategory(models.Model):
 
 
 class CustomAccount(AbstractUser):
-    category = models.ForeignKey(AccountCategory, on_delete=CASCADE)
+    category = models.ForeignKey(AccountCategory, on_delete=SET_NULL, null=True)
     is_approved = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         super(CustomAccount, self).save(*args, **kwargs)
 
-        # Create Application for user
-        application = Application()
-        application.user = self
-        application.category = self.category.applicationcategory
-        application.save()
+        if not self.pk and self.category:
+            application = Application()
+            application.user = self
+            application.category = self.category.applicationcategory
+            application.save()
 
-        for question in application.category.questions.all():
-            answer = ApplicationAnswer()
-            answer.question = question
-            answer.application = application
-            answer.save()
+            for question in application.category.questions.all():
+                answer = ApplicationAnswer()
+                answer.question = question
+                answer.application = application
+                answer.save()
 
