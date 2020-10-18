@@ -61,14 +61,16 @@
 
     <div id="toc" class="break-after">
         <h4>TABLE OF CONTENTS</h4>
-           {% for answer in user.application.answers.all %}
-        <h5><a href="#{{ answer.id}}">{{ forloop.counter|floatformat:1 }} {{ answer.question.name }}</a></h5>
-    {% endfor %}
+        {% for answer in user.application.answers.all %}
+        <h4 class="to-upper"><a href="#{{ answer.id}}">{{ forloop.counter|floatformat:1 }} {{ answer.question.name }}</a></h4>
+        {% endfor %}
     </div>
 
     {% for answer in user.application.answers.all %}
-    <h3 id="{{ answer.id }}">{{ forloop.counter|floatformat:1 }} {{ answer.question.name }}</h3>
-    <div>{{ answer.content | safe }}</div>
+    <div class="section">
+        <h3 class="to-upper" id="{{ answer.id }}">{{ forloop.counter|floatformat:1 }} {{ answer.question.name }}</h3>
+        <div>{{ answer.content | safe }}</div>
+    </div>
     {% endfor %}
 </div>
 </body>

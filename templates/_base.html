@@ -20,16 +20,19 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+
         <div class="navbar-collapse collapse">
             {% if user.is_authenticated %}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link  {% if url_name == 'edit_application' %}active{% endif %}"
-                       href="{% url 'edit_application' %}">Edit Application</a>
+                    {% url 'edit_application' as edit_url %}
+                    <a class="nav-link  {% if request.path == edit_url %}active{% endif %}"
+                       href="{{ edit_url }}">Edit Application</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'view_application' %}active{% endif %}"
-                       href="{% url 'view_application' %}">View Application</a>
+                    {% url 'view_application' as view_url %}
+                    <a class="nav-link {% if request.path == view_url %}active{% endif %}"
+                       href="{{ view_url }}">View Application</a>
                 </li>
             </ul>
             <a class=" nav-link btn btn-outline-primary" href="{% url 'logout' %}">Logout</a>
@@ -61,8 +64,8 @@
             selector:'textarea',
             branding: false,
             menubar: false,
-            plugins: 'link table',
-            toolbar: 'undo redo | table | bold italic underline | link'
+            plugins: 'link table lists',
+            toolbar: 'undo redo | bold italic underline link | numlist bullist table'
       });
 
 

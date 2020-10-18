@@ -1,8 +1,7 @@
 import tempfile
 
-from django import forms
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.forms import modelformset_factory
 from django.template.loader import render_to_string
 from weasyprint import HTML, CSS
@@ -28,6 +27,13 @@ def edit_application(request):
 
 def view_application(request):
     return render(request, 'application_view.html')
+
+
+def home(request):
+    if request.user.is_authenticated:
+        return redirect('edit_application')
+    else:
+        return redirect('login')
 
 
 def generate_pdf(request):

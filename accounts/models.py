@@ -17,9 +17,14 @@ class CustomAccount(AbstractUser):
     is_approved = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        if not self.pk:
+            is_new = True
+        else:
+            is_new = False
+
         super(CustomAccount, self).save(*args, **kwargs)
 
-        if not self.pk and self.category:
+        if is_new and self.category:
             application = Application()
             application.user = self
             application.category = self.category.applicationcategory
