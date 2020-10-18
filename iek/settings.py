@@ -24,7 +24,7 @@ SECRET_KEY = 'io^@_g%xv_@gw3a+4yb0q_909b7c8z=9mv@uef&twgu$!@ns07'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['13.81.51.201', 'localhost']
 
 # Application definition
 
@@ -36,9 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd Party
+    'crispy_forms',
+
     # Local
     'accounts.apps.AccountsConfig',
     'applications.apps.ApplicationsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -128,3 +132,5 @@ AUTH_USER_MODEL = 'accounts.CustomAccount'
 LOGIN_REDIRECT_URL = '/application/edit'
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
