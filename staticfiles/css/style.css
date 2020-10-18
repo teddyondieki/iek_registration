@@ -3,3 +3,13 @@
     font-size: 15pt;
     margin-bottom: 20px;
 }
+
+.navbar .btn-primary{
+color: white !important;
+margin-left: 20px;
+}
+
+.navbar{
+box-shadow: 0 10px 10px -5px #DDD;
+margin-bottom: 20px;
+}
